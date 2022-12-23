@@ -1,5 +1,7 @@
 package view;
 
+import controller.InvoiceController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -25,19 +27,19 @@ public class InvoiceFrame extends JFrame {
     private JLabel InvTotalLbl2;
     private JTable InvoiceTable;
     private JPanel LeftPane;
-    private JMenu LoadFileMenu;
+    private JMenuItem LoadFileMenu;
     private JButton NewInvBtn;
     private JPanel RightPane;
     private JButton SaveBtn;
-    private JMenu SaveFileMenu;
+    private JMenuItem SaveFileMenu;
     // End of variables declaration
 
-    public static void main(String[] args) {
 
-        new InvoiceFrame().setVisible(true);
-    }
 
     public InvoiceFrame() {
+        super("Sales Invoice Generator Application");
+
+        InvoiceController l = new InvoiceController();
 
         LeftPane = new JPanel();
         InvTblLbl = new JLabel();
@@ -61,26 +63,49 @@ public class InvoiceFrame extends JFrame {
         InvTotalLbl2 = new JLabel();
         FrameMenuBar = new JMenuBar();
         FileMenu = new JMenu();
-        LoadFileMenu = new JMenu();
-        SaveFileMenu = new JMenu();
+        LoadFileMenu = new JMenuItem();
+        SaveFileMenu = new JMenuItem();
 
+        setLayout(new GridLayout(1,2));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        InvTblLbl.setText("Invoice Table");
+
+        FileMenu.setText("File");
+
+        LoadFileMenu.setText("Load File");
+        LoadFileMenu.setActionCommand("LoadMenu");
+        LoadFileMenu.addActionListener(l);
+        FileMenu.add(LoadFileMenu);
+
+        SaveFileMenu.setText("Save File");
+        SaveFileMenu.setActionCommand("SaveMenu");
+        SaveFileMenu.addActionListener(l);
+        FileMenu.add(SaveFileMenu);
+
+        FrameMenuBar.add(FileMenu);
+        setJMenuBar(FrameMenuBar);
+
+
 
         NewInvBtn.setText("Create New Invoice");
-        NewInvBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NewInvBtnActionPerformed(evt);
-            }
-        });
+        NewInvBtn.setActionCommand("NewBtn");
+        NewInvBtn.addActionListener(l);
 
         DeleteBtn.setText("Delete Invoice");
-        DeleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteBtnActionPerformed(evt);
-            }
-        });
+        DeleteBtn.setActionCommand("DeleteBtn");
+        DeleteBtn.addActionListener(l);
+
+        SaveBtn.setText("Save");
+        SaveBtn.setActionCommand("SaveBtn");
+        SaveBtn.addActionListener(l);
+
+        CancelBtn.setText("Cancel");
+        CancelBtn.setActionCommand("CancelBtn");
+        CancelBtn.addActionListener(l);
+
+        InvTblScroll.setViewportView(InvoiceTable);
+
+        InvTblLbl.setText("Invoice Table");
 
         InvoiceTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
@@ -93,10 +118,10 @@ public class InvoiceFrame extends JFrame {
                         {null, null, null, null}
                 },
                 new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
+                        "No.", "Date", "Customer", "Total"
                 }
         ));
-        InvTblScroll.setViewportView(InvoiceTable);
+
 
         GroupLayout LeftPaneLayout = new GroupLayout(LeftPane);
         LeftPane.setLayout(LeftPaneLayout);
@@ -132,35 +157,22 @@ public class InvoiceFrame extends JFrame {
                                 .addGap(69, 69, 69))
         );
 
-        InvItemTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
         InvItemScroll.setViewportView(InvItemTable);
 
-        SaveBtn.setText("Save");
-        SaveBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveBtnActionPerformed(evt);
-            }
-        });
-
-        CancelBtn.setText("Cancel");
-        CancelBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelBtnActionPerformed(evt);
-            }
-        });
+        InvItemTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                        {null, null, null, null, null},
+                        {null, null, null, null, null},
+                        {null, null, null, null, null},
+                        {null, null, null, null, null},
+                        {null, null, null, null, null},
+                        {null, null, null, null, null},
+                        {null, null, null, null, null}
+                },
+                new String [] {
+                        "No.", "Item Name", "Item Price", "Count", "Item Total"
+                }
+        ));
 
         InvItmLbl.setText("Invoice Items");
 
@@ -243,17 +255,7 @@ public class InvoiceFrame extends JFrame {
                                 .addGap(59, 59, 59))
         );
 
-        FileMenu.setText("File");
 
-        LoadFileMenu.setText("Load File");
-        FileMenu.add(LoadFileMenu);
-
-        SaveFileMenu.setText("Save File");
-        FileMenu.add(SaveFileMenu);
-
-        FrameMenuBar.add(FileMenu);
-
-        setJMenuBar(FrameMenuBar);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -273,6 +275,8 @@ public class InvoiceFrame extends JFrame {
                                 .addComponent(RightPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
         );
+
+
 
         pack();
     }// </editor-fold>
