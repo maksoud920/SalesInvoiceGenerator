@@ -3,7 +3,9 @@ package view;
 import controller.InvoiceController;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+
 
 public class InvoiceFrame extends JFrame {
 
@@ -36,10 +38,9 @@ public class InvoiceFrame extends JFrame {
 
 
 
+
     public InvoiceFrame() {
         super("Sales Invoice Generator Application");
-
-        InvoiceController l = new InvoiceController();
 
         LeftPane = new JPanel();
         InvTblLbl = new JLabel();
@@ -74,12 +75,12 @@ public class InvoiceFrame extends JFrame {
 
         LoadFileMenu.setText("Load File");
         LoadFileMenu.setActionCommand("LoadMenu");
-        LoadFileMenu.addActionListener(l);
+        LoadFileMenu.addActionListener(Listener);
         FileMenu.add(LoadFileMenu);
 
         SaveFileMenu.setText("Save File");
         SaveFileMenu.setActionCommand("SaveMenu");
-        SaveFileMenu.addActionListener(l);
+        SaveFileMenu.addActionListener(Listener);
         FileMenu.add(SaveFileMenu);
 
         FrameMenuBar.add(FileMenu);
@@ -89,38 +90,39 @@ public class InvoiceFrame extends JFrame {
 
         NewInvBtn.setText("Create New Invoice");
         NewInvBtn.setActionCommand("NewBtn");
-        NewInvBtn.addActionListener(l);
+        NewInvBtn.addActionListener(Listener);
 
         DeleteBtn.setText("Delete Invoice");
         DeleteBtn.setActionCommand("DeleteBtn");
-        DeleteBtn.addActionListener(l);
+        DeleteBtn.addActionListener(Listener);
 
         SaveBtn.setText("Save");
         SaveBtn.setActionCommand("SaveBtn");
-        SaveBtn.addActionListener(l);
+        SaveBtn.addActionListener(Listener);
 
         CancelBtn.setText("Cancel");
         CancelBtn.setActionCommand("CancelBtn");
-        CancelBtn.addActionListener(l);
+        CancelBtn.addActionListener(Listener);
 
         InvTblScroll.setViewportView(InvoiceTable);
 
         InvTblLbl.setText("Invoice Table");
 
         InvoiceTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
+                new Object [][] {{null, null, null, null}
+   /*                     {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null}
-                },
+     */           },
                 new String [] {
                         "No.", "Date", "Customer", "Total"
                 }
         ));
+        InvoiceTable.getSelectionModel().addListSelectionListener(SelectListener);
 
 
         GroupLayout LeftPaneLayout = new GroupLayout(LeftPane);
@@ -160,15 +162,15 @@ public class InvoiceFrame extends JFrame {
         InvItemScroll.setViewportView(InvItemTable);
 
         InvItemTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null, null},
+                new Object [][] {{null, null, null, null, null}
+   /*                     {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null}
-                },
+     */           },
                 new String [] {
                         "No.", "Item Name", "Item Price", "Count", "Item Total"
                 }
@@ -178,19 +180,19 @@ public class InvoiceFrame extends JFrame {
 
         InvNumLbl.setText("Invoice Number:");
 
-        InvNumLbl2.setText("23");
+        InvNumLbl2.setText("");
 
         InvDateLbl.setText("Invoice Date");
 
-        InvDateTF.setText("jTextField1");
+        InvDateTF.setText("");
 
         CusNameLbl.setText("Customer Name:");
 
-        CusNameTF.setText("jTextField2");
+        CusNameTF.setText("");
 
         InvTotalLbl.setText("Invoice Total:");
 
-        InvTotalLbl2.setText("jLabel6");
+        InvTotalLbl2.setText("");
 
         GroupLayout RightPaneLayout = new GroupLayout(RightPane);
         RightPane.setLayout(RightPaneLayout);
@@ -281,7 +283,7 @@ public class InvoiceFrame extends JFrame {
         pack();
     }// </editor-fold>
 
-    private void NewInvBtnActionPerformed(java.awt.event.ActionEvent evt) {
+ /*   private void NewInvBtnActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
@@ -293,8 +295,48 @@ public class InvoiceFrame extends JFrame {
     }
     private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+    }*/
+    public void setCusNameTF(String cusNameTF) {
+        CusNameTF.setText(cusNameTF);
     }
 
+    public void setInvDateTF(String invDateTF) {
+        InvDateTF.setText(invDateTF);
+    }
+
+    public void setInvNumLbl2(String invNumLbl2) {
+        InvNumLbl2.setText(invNumLbl2);
+    }
+
+    public void setInvTotalLbl2(String invTotalLbl2) {
+        InvTotalLbl2.setText(invTotalLbl2);
+    }
+
+    public void SetTable1(Object[] row){
+        DefaultTableModel model = (DefaultTableModel) InvoiceTable.getModel();
+        model.insertRow(0,row);
+
+    }
+    public void SetTable2(Object[] row){
+
+        DefaultTableModel model = (DefaultTableModel) InvItemTable.getModel();
+        model.insertRow(0,row);
+
+    }
+    public int SelectRow(){
+        int RowIndex = InvoiceTable.getSelectedRow();
+        return RowIndex;
+    }
+    public JTable getTable1(){
+        return InvoiceTable;
+    }
+    public JTable getTable2(){
+        return InvItemTable;
+    }
+
+
+    private InvoiceController Listener = new InvoiceController(this);
+    private InvoiceController SelectListener = new InvoiceController(this);
 }
 
 

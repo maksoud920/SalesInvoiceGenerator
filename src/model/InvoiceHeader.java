@@ -11,6 +11,7 @@ public class InvoiceHeader {
     private String customerName;
     private ArrayList<InvoiceLine> invoiceLine= new ArrayList<>();
 
+    //Class Constructor
     public InvoiceHeader() {
     }
 
@@ -21,6 +22,7 @@ public class InvoiceHeader {
         this.invoiceLine = invoiceLine;
     }
 
+    //Getters and Setters
     public int getInvoiceNum() {
         return invoiceNum;
     }
