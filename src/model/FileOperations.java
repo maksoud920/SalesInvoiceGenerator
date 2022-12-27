@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 
 public class FileOperations {
+    public String HeaderFilePath = "InvoiceHeader.csv";
+    public String LineFilePath = "InvoiceLine.csv";
 
     public FileOperations() {
     }
@@ -30,11 +32,11 @@ public class FileOperations {
                 System.out.println(invoiceHeader.getInvoiceNum());
                 System.out.println(invoiceHeader.getInvoiceDate());
                 System.out.println(invoiceHeader.getCustomerName());
-                Scanner s2 = new Scanner(new File("../Data/InvoiceLine.csv"));
+                Scanner s2 = new Scanner(new File(HeaderFilePath));
                 while (s2.hasNext()) {
                     InvoiceLine invoiceLine = new InvoiceLine();
                     String[] lineS2 = s2.nextLine().split(",");
-                    if (Integer.parseInt(lineS1[0]) == Integer.parseInt(lineS2[0])) {
+                    if (lineS1[0] == lineS2[0]) {
                         invoiceLine.setItemName(lineS2[1]);
                         invoiceLine.setItemPrice(Integer.parseInt(lineS2[2]));
                         invoiceLine.setCount(Integer.parseInt(lineS2[3]));
@@ -50,11 +52,11 @@ public class FileOperations {
             }
 
         } catch (FileNotFoundException e) {
-            File f = new File("../Data/InvoiceHeader.csv");
+            File f = new File(HeaderFilePath);
             if (!f.exists()) {
                 JOptionPane.showMessageDialog(null, "InvoiceHeader file not Found", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            File f2 = new File("../Data/InvoiceLine.csv");
+            File f2 = new File(LineFilePath);
             if (!f2.exists()) {
                 JOptionPane.showMessageDialog(null, "InvoiceLine file not Found", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -65,8 +67,8 @@ public class FileOperations {
 
         public void writeFile (ArrayList<InvoiceHeader> invoiceHeadersList) {  // write data to the InvoiceHeader and InvoiceLine files
             try {
-                FileWriter fw = new FileWriter("../Data/InvoiceHeader.csv", false);
-                FileWriter fw2 = new FileWriter("../Data/InvoiceLine.csv", false);
+                FileWriter fw = new FileWriter(HeaderFilePath, false);
+                FileWriter fw2 = new FileWriter(LineFilePath, false);
                 BufferedWriter bw = new BufferedWriter(fw);
                 BufferedWriter bw2 = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
@@ -91,12 +93,12 @@ public class FileOperations {
                 JOptionPane.showMessageDialog(null, "Invoices Saved to File");
 
             } catch (IOException e) {
-                File f = new File("../Data/InvoiceHeader.csv");
+                File f = new File(HeaderFilePath);
                 if (!f.exists()) {
                     JOptionPane.showMessageDialog(null, "InvoiceHeader file not Found", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
-                File f2 = new File("../Data/InvoiceLine.csv");
+                File f2 = new File(LineFilePath);
                 if (!f2.exists()) {
                     JOptionPane.showMessageDialog(null, "InvoiceLine file not Found", "Error", JOptionPane.ERROR_MESSAGE);
                 }

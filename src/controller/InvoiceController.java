@@ -15,8 +15,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 //InvoiceController class
 public class InvoiceController implements ActionListener, ListSelectionListener {
+    public String HeaderFilePath = "InvoiceHeader.csv";
+    public String LineFilePath = "InvoiceLine.csv";
     private InvoiceFrame frame;
     private FileOperations FileOp = new FileOperations();
     public ArrayList<InvoiceHeader> MainArrayList = new ArrayList<>();
@@ -48,9 +51,9 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
             int Total = 0;
             Scanner s2 = null; //Scanner for reading InvoiceLine file
             try {
-                s2 = new Scanner(new File("../Data/InvoiceLine.csv"));
+                s2 = new Scanner(new File(LineFilePath));
             } catch (FileNotFoundException e) {
-                File f = new File("../Data/InvoiceLine.csv");
+                File f = new File(LineFilePath);
                 if (!f.exists()) {
                     JOptionPane.showMessageDialog(null, "File not Found", "Error", JOptionPane.ERROR_MESSAGE);
 
@@ -84,7 +87,7 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
 
         Scanner s2 = null;
         try {
-            s2 = new Scanner(new File("../Data/InvoiceLine.csv")); //Scanner for reading InvoiceLine file
+            s2 = new Scanner(new File(LineFilePath)); //Scanner for reading InvoiceLine file
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -152,11 +155,11 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
                 break;
 
             case "CancelBtn": //for cancel button
-                LoadData("../Data/InvoiceHeader.csv"); // Load the data again and ignore any changes happened
+                LoadData(HeaderFilePath); // Load the data again and ignore any changes happened
                 break;
 
             case "LoadMenu": //for Load file menu item
-                LoadData("../Data/InvoiceHeader.csv");
+                LoadData(HeaderFilePath);
                 break;
 
             case "SaveMenu": //for Save file Menu item
