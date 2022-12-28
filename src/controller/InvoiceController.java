@@ -18,8 +18,8 @@ import java.util.Scanner;
 
 //InvoiceController class
 public class InvoiceController implements ActionListener, ListSelectionListener {
-    public String HeaderFilePath = "InvoiceHeader.csv";
-    public String LineFilePath = "InvoiceLine.csv";
+    public String HeaderFilePath = "../SalesInvoiceGenerator/out/production/SalesInvoiceGenerator/resources/InvoiceHeader.csv";
+    public String LineFilePath = "../SalesInvoiceGenerator/out/production/SalesInvoiceGenerator/resources/InvoiceLine.csv";
     private InvoiceFrame frame;
     private FileOperations FileOp = new FileOperations();
     public ArrayList<InvoiceHeader> MainArrayList = new ArrayList<>();

@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 
 public class FileOperations {
-    public String HeaderFilePath = "InvoiceHeader.csv";
-    public String LineFilePath = "InvoiceLine.csv";
+    public String HeaderFilePath = "../SalesInvoiceGenerator/out/production/SalesInvoiceGenerator/resources/InvoiceHeader.csv";
+    public String LineFilePath = "../SalesInvoiceGenerator/out/production/SalesInvoiceGenerator/resources/InvoiceLine.csv";
 
     public FileOperations() {
     }

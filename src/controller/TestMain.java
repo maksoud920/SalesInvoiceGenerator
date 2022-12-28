@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class TestMain {
     public static void main(String[] s) {
         try {
-            Scanner s1 = new Scanner(new File("../Data/InvoiceHeader.csv"));
+            Scanner s1 = new Scanner(new File("InvoiceHeader.csv"));
             InvoiceHeader inv = new InvoiceHeader();
             InvoiceLine invLine = new InvoiceLine();
             while (s1.hasNext()) {
@@ -20,7 +20,7 @@ public class TestMain {
                 System.out.print(inv.getInvoiceDate());
                 System.out.println(", " + inv.getCustomerName());
                 /////////////////////////
-                Scanner s2 = new Scanner(new File("../Data/InvoiceLine.csv"));
+                Scanner s2 = new Scanner(new File("InvoiceLine.csv"));
                 while (s2.hasNext()) {
                     String[] line2 = s2.nextLine().split(",");
                         if (Integer.parseInt(line1[0]) == Integer.parseInt(line2[0])) {
@@ -33,7 +33,6 @@ public class TestMain {
                         }
                 }
                 System.out.println("}");
-                System.out.println();
                 System.out.println();
             }
         }   catch (FileNotFoundException e) {e.printStackTrace();}
